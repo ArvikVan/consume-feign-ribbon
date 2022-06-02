@@ -16,5 +16,9 @@ public class ConsumeFeignRibbonApplication {
 	public WebClient.Builder getABuilder() {
 		return WebClient.builder();
 	}*/
+	@Bean
+	public WebClient webClient() {
+		return WebClient.create("https://jsonplaceholder.typicode.com/");
+	}
 
 }

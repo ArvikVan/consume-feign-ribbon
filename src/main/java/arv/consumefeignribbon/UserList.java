@@ -16,7 +16,7 @@ public class UserList extends VerticalLayout {
     public UserList(UsersService service) {
 
         var grid = new Grid<User>(User.class);
-        grid.setItems(service.getUsers());
+        grid.setItems(service.getALLInfoUsers());
         grid.setColumns("name", "phone", "website", "company.name");
         add(grid);
     }
