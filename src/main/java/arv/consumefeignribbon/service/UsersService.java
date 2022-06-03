@@ -48,10 +48,10 @@ public class UsersService {
                 .bodyToMono(UserDTO.class).block();
     }
 
-    public Message getMessageInfo(String senderMsid) {
+    public Message getMessageInfo(String senderMsid, String creationDate) {
         return webClient
                 .get()
-                .uri("/users/" + senderMsid)
+                .uri("/users/?dateFrom="+creationDate+"&msids="+senderMsid)
                 .retrieve()
                 .bodyToMono(Message.class).block();
     }

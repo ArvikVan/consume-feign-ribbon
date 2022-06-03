@@ -1,13 +1,16 @@
 package arv.consumefeignribbon.controller;
 
+import arv.consumefeignribbon.models.Message;
 import arv.consumefeignribbon.models.User;
 import arv.consumefeignribbon.models.UserDTO;
 import arv.consumefeignribbon.service.UsersService;
 import org.apache.catalina.LifecycleState;
+import org.atmosphere.config.service.Get;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -33,5 +36,12 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<UserDTO> getUserDTOById(UsersService usersService, @PathVariable Integer id) {
         return new ResponseEntity<>(usersService.getUserById(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/getMessageInfo")
+    public ResponseEntity<Message> getMessageInfo(UsersService usersService,
+                                                  @RequestParam String senderMsid,
+                                                  @RequestParam String creationDate) {
+        return new ResponseEntity<>(usersService.getMessageInfo(senderMsid, creationDate), HttpStatus.OK);
     }
 }
