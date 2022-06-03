@@ -1,5 +1,6 @@
 package arv.consumefeignribbon.service;
 
+import arv.consumefeignribbon.models.Message;
 import arv.consumefeignribbon.models.User;
 import arv.consumefeignribbon.models.UserDTO;
 import org.springframework.stereotype.Service;
@@ -45,5 +46,13 @@ public class UsersService {
                 .uri("/users/" + id)
                 .retrieve()
                 .bodyToMono(UserDTO.class).block();
+    }
+
+    public Message getMessageInfo(String senderMsid) {
+        return webClient
+                .get()
+                .uri("/users/" + senderMsid)
+                .retrieve()
+                .bodyToMono(Message.class).block();
     }
 }
