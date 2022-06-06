@@ -51,4 +51,13 @@ public class UserController {
         return new ResponseEntity<>(usersService.getMessageInfo(token, dateFrom, dateTo, msids, type), HttpStatus.OK);
                        
     }
+    //Failed to convert value of type 'java.lang.String' to required type 'java.lang.Integer';
+    //откуда тут стринга зарисовалась хуйзнат
+    @GetMapping("/getById/{messageID}")
+    public ResponseEntity<Message> getMessageByMessageID(@RequestHeader("Authorization") String token,
+                                                         @PathVariable Integer messageID) {
+
+        return new ResponseEntity<>(usersService.getMessageByMessageId(token, messageID), HttpStatus.OK);
+
+    }
 }

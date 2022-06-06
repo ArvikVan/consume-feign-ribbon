@@ -4,6 +4,7 @@ import arv.consumefeignribbon.models.Message;
 import arv.consumefeignribbon.models.MessageType;
 import arv.consumefeignribbon.models.User;
 import arv.consumefeignribbon.models.UserDTO;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -18,9 +19,10 @@ import java.time.LocalDateTime;
 public class UsersService {
 
     private final WebClient webClient;
+    private static String TOKEN = "83d70801-3d6c-4399-abab-f357204f4b84";
 
-    public UsersService(WebClient webClient) {
-        this.webClient = WebClient.create("https://api.mcommunicator.ru/v2/messageManagement/messages");
+    public UsersService(WebClient.Builder webClient, @Value("${mts.json.url}") String baseUrl) {
+        this.webClient = webClient.baseUrl(baseUrl).build();
     }
 
     public User[] getALLInfoUsers() {
@@ -48,10 +50,20 @@ public class UsersService {
     }
 
     public Message getMessageInfo(String token, String dateFrom, String dateTo, String msids, MessageType type) {
-        token = "83d70801-3d6c-4399-abab-f357204f4b84";
+        token = TOKEN;
         return webClient
                 .get()
                 .uri("?dateFrom=" + dateFrom + "&dateTo=" + dateTo + "&msids=" + msids + "&type=All")
+                .header("Authorization", "Bearer " + token)
+                .retrieve()
+                .bodyToMono(Message.class).block();
+    }
+
+    public Message getMessageByMessageId(String token, Integer messageID) {
+        token = TOKEN;
+        return webClient
+                .get()
+                .uri("/"+ messageID)
                 .header("Authorization", "Bearer " + token)
                 .retrieve()
                 .bodyToMono(Message.class).block();
