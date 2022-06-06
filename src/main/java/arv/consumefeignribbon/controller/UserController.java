@@ -1,15 +1,15 @@
 package arv.consumefeignribbon.controller;
 
 import arv.consumefeignribbon.models.Message;
+import arv.consumefeignribbon.models.MessageType;
 import arv.consumefeignribbon.models.User;
 import arv.consumefeignribbon.models.UserDTO;
 import arv.consumefeignribbon.service.UsersService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
 
 /**
  * @author ArvikV
@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 02.06.2022
  */
 @RestController
+@RequestMapping("/api/v1")
 public class UserController {
 
     private final UsersService usersService;
@@ -40,9 +41,14 @@ public class UserController {
         return new ResponseEntity<>(usersService.getUserById(id), HttpStatus.OK);
     }
 
-    @GetMapping("/getMessageInfo")
-    public ResponseEntity<Message> getMessageInfo(@RequestParam String senderMsid,
-                                                  @RequestParam String creationDate) {
-        return new ResponseEntity<>(usersService.getMessageInfo(senderMsid, creationDate), HttpStatus.OK);
+    @GetMapping("/")
+    public ResponseEntity<Message> getMessageInfo(@RequestHeader("Authorization") String token,
+                                                        @RequestParam String dateFrom,
+                                                        @RequestParam String dateTo,
+                                                        @RequestParam String msids,
+                                                        @RequestParam MessageType type
+    ) {
+        return new ResponseEntity<>(usersService.getMessageInfo(token, dateFrom, dateTo, msids, type), HttpStatus.OK);
+                       
     }
 }

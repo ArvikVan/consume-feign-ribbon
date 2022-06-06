@@ -11,14 +11,9 @@ public class ConsumeFeignRibbonApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ConsumeFeignRibbonApplication.class, args);
 	}
-/*
-	@Bean
-	public WebClient.Builder getABuilder() {
-		return WebClient.builder();
-	}*/
 	@Bean
 	public WebClient webClient() {
-		return WebClient.create("https://jsonplaceholder.typicode.com/");
+		return WebClient.create();
 	}
 
 }

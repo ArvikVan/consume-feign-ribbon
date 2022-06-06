@@ -1,10 +1,13 @@
 package arv.consumefeignribbon.service;
 
 import arv.consumefeignribbon.models.Message;
+import arv.consumefeignribbon.models.MessageType;
 import arv.consumefeignribbon.models.User;
 import arv.consumefeignribbon.models.UserDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+
+import java.time.LocalDateTime;
 
 /**
  * @author ArvikV
@@ -17,12 +20,8 @@ public class UsersService {
     private final WebClient webClient;
 
     public UsersService(WebClient webClient) {
-        this.webClient = WebClient.create("https://jsonplaceholder.typicode.com/");
+        this.webClient = WebClient.create("https://api.mcommunicator.ru/v2/messageManagement/messages");
     }
-
-  /*  public UsersService(WebClient.Builder builder) {
-        webClient = builder.baseUrl("https://jsonplaceholder.typicode.com/").build();
-    }*/
 
     public User[] getALLInfoUsers() {
         return webClient
@@ -48,10 +47,12 @@ public class UsersService {
                 .bodyToMono(UserDTO.class).block();
     }
 
-    public Message getMessageInfo(String senderMsid, String creationDate) {
+    public Message getMessageInfo(String token, String dateFrom, String dateTo, String msids, MessageType type) {
+        token = "83d70801-3d6c-4399-abab-f357204f4b84";
         return webClient
                 .get()
-                .uri("/users/?dateFrom="+creationDate+"&msids="+senderMsid)
+                .uri("?dateFrom=" + dateFrom + "&dateTo=" + dateTo + "&msids=" + msids + "&type=All")
+                .header("Authorization", "Bearer " + token)
                 .retrieve()
                 .bodyToMono(Message.class).block();
     }
