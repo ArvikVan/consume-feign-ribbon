@@ -1,5 +1,8 @@
+
 package arv.consumefeignribbon.models;
+
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.annotation.Generated;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
@@ -9,84 +12,52 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-
-/**
- * @author ArvikV
- * @version 1.0
- * @since 03.06.2022
- */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-        "creationDate",
-        "text",
-        "senderMsid",
-        "senderName",
-        "targetMsid"
+    "code",
+    "description",
+    "data"
 })
 @Generated("jsonschema2pojo")
 public class Message {
 
-    @JsonProperty("creationDate")
-    private String creationDate;
-    @JsonProperty("text")
-    private String text;
-    @JsonProperty("senderMsid")
-    private String senderMsid;
-    @JsonProperty("senderName")
-    private String senderName;
-    @JsonProperty("targetMsid")
-    private String targetMsid;
+    @JsonProperty("code")
+    private Integer code;
+    @JsonProperty("description")
+    private String description;
+    @JsonProperty("data")
+    private List<Datum> data = null;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-    @JsonProperty("creationDate")
-    public String getCreationDate() {
-        return creationDate;
+    @JsonProperty("code")
+    public Integer getCode() {
+        return code;
     }
 
-    @JsonProperty("creationDate")
-    public void setCreationDate(String creationDate) {
-        this.creationDate = creationDate;
+    @JsonProperty("code")
+    public void setCode(Integer code) {
+        this.code = code;
     }
 
-    @JsonProperty("text")
-    public String getText() {
-        return text;
+    @JsonProperty("description")
+    public String getDescription() {
+        return description;
     }
 
-    @JsonProperty("text")
-    public void setText(String text) {
-        this.text = text;
+    @JsonProperty("description")
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    @JsonProperty("senderMsid")
-    public String getSenderMsid() {
-        return senderMsid;
+    @JsonProperty("data")
+    public List<Datum> getData() {
+        return data;
     }
 
-    @JsonProperty("senderMsid")
-    public void setSenderMsid(String senderMsid) {
-        this.senderMsid = senderMsid;
-    }
-
-    @JsonProperty("senderName")
-    public String getSenderName() {
-        return senderName;
-    }
-
-    @JsonProperty("senderName")
-    public void setSenderName(String senderName) {
-        this.senderName = senderName;
-    }
-
-    @JsonProperty("targetMsid")
-    public String getTargetMsid() {
-        return targetMsid;
-    }
-
-    @JsonProperty("targetMsid")
-    public void setTargetMsid(String targetMsid) {
-        this.targetMsid = targetMsid;
+    @JsonProperty("data")
+    public void setData(List<Datum> data) {
+        this.data = data;
     }
 
     @JsonAnyGetter
